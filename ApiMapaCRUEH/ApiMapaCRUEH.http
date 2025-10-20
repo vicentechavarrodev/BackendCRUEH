@@ -1,0 +1,6 @@
+@ApiMapaCRUEH_HostAddress = http://localhost:5251
+
+GET {{ApiMapaCRUEH_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
