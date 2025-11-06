@@ -1,4 +1,6 @@
-﻿namespace ApiMapaCRUEH.Clases
+﻿using System.Net;
+
+namespace ApiMapaCRUEH.Clases
 {
     public class Response
     {
@@ -11,6 +13,9 @@
         public string Code { get; set; }
 
         public HttpResponseMessage ResponseMessage { get; set; }
+
+        public CookieCollection Cookies { get; set; }
+
 
 
     }

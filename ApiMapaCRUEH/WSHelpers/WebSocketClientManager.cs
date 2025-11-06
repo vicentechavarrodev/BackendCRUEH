@@ -1,4 +1,6 @@
 ﻿using ApiMapaCRUEH.Services;
+using Newtonsoft.Json;
+using System;
 using System.Net.WebSockets;
 using System.Text;
 
@@ -57,6 +59,8 @@ namespace ApiMapaCRUEH.WSHelpers
                             if (result.MessageType == WebSocketMessageType.Text)
                             {
                                 string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
+
+
                                 foreach (var socket in _connectionManager.GetAllSockets())
                                 {
                                     if (socket.State == WebSocketState.Open)

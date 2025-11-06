@@ -4,8 +4,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50532",
-      "sslPort": 44310
+      "applicationUrl": "http://localhost:5254",
+      "sslPort": 44311
     }
   },
   "profiles": {
@@ -14,13 +14,14 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5251",
+      "applicationUrl": "http://localhost:5254",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "SOCKET_TRACCAR": "ws://186.147.196.166:8082/api/socket",
         "SESSION_TRACCAR": "http://186.147.196.166:8082/api/session",
         "USUARIO_TRACCAR": "reyesvrc@gmail.com",
         "PASSWORD_TRACCAR": "admin"
+
       }
     },
     "https": {
@@ -28,7 +29,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7286;http://localhost:5251",
+      "applicationUrl": "https://localhost:7287;http://localhost:5254",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "SOCKET_TRACCAR": "ws://186.147.196.166:8082/api/socket",
