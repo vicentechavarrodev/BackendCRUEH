@@ -6,4 +6,12 @@
     public string ObtenerListaAmbulanciasMonitoreo { get; set; }
     public string UsuarioExtranet { get;  set; }
     public string PasswordExtranet { get;  set; }
+    public string ObtenerListaMediosRecepcion { get; set; }
+    public string ObtenerListaSectoresReportantes { get; set; }
+    public string ObtenerListaTiposEvento { get; set; }
+    public string ObtenerListaEventos { get; set; }
+    public string ObtenerListaTiposTrauma { get; set; }
+    public string ObtenerListaRolesTransito { get; set; }
+    public string ObtenerListaMecanismosLesion { get; set; }
+
 }
