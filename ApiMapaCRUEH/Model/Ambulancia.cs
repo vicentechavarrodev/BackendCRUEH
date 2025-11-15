@@ -13,5 +13,7 @@
         public string? NaturalezaJuridica { get; set; }
         public bool Disponible { get; set; }
         public string? IMEI { get; set; }
+        public long? IDMonitoreo { get; set; }
+        
     }
 }
