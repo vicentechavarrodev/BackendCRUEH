@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiMapaCRUEH.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("backendcrueh/[controller]")]
     [ApiController]
     public class AmbulanciasController : ControllerBase
     {
+        
         private readonly IApiHelper _apiHelper;
         private readonly ExtranetServiceOptions _options;
         private readonly IEXSession _session;

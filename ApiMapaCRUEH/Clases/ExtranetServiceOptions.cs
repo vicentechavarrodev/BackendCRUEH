@@ -13,5 +13,10 @@
     public string ObtenerListaTiposTrauma { get; set; }
     public string ObtenerListaRolesTransito { get; set; }
     public string ObtenerListaMecanismosLesion { get; set; }
+    public string DatosEventosAPHAmbulancias { get; set; }
+    public string ObtenerListaEventosActivos { get; set; }
+    public string AsignarAmbulancia { get; set; }
+    public string ObtenerListaIPSMonitoreo { get; set; }
+
 
 }

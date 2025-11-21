@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiMapaCRUEH.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("backendcrueh/[controller]")]
     [ApiController]
     public class EventosController : ControllerBase
     {
@@ -119,6 +119,66 @@ namespace ApiMapaCRUEH.Controllers
             return Ok(response.Result);
 
         }
+
+        [HttpPost]
+        [Route("DatosEventosAPHAmbulancias")]
+        public async Task<IActionResult> DatosEventosAPHAmbulancias(ParamsNuevoRegistroAPHAmbulancia paramsObtenerListaEventosactivos)
+        {
+            var response = await _apiHelper.Post<ParamsNuevoRegistroAPHAmbulancia, object>(_options.ApiEextranetBaseUrl, _options.DatosEventosAPHAmbulancias, "", "", _session.ObtenerHeaders(), paramsObtenerListaEventosactivos, false);
+
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response.Result);
+
+        }
+
+
+        [HttpPost]
+        [Route("ObtenerListaEventosActivos")]
+        public async Task<IActionResult> ObtenerListaEventosActivos()
+        {
+            var response = await _apiHelper.Post<object, DatosEventosAPHAmbulancias>(_options.ApiEextranetBaseUrl, _options.ObtenerListaEventosActivos, "", "", _session.ObtenerHeaders(),null , true);
+
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response.Result);
+
+        }
+
+
+        [HttpPost]
+        [Route("AsignarAmbulancia")]
+        public async Task<IActionResult> AsignarAmbulancia(ParamsAsignarAmbulanciaDto  paramsAsignarAmbulanciaDto)
+        {
+            var response = await _apiHelper.Post<ParamsAsignarAmbulanciaDto, object>(_options.ApiEextranetBaseUrl, _options.AsignarAmbulancia, "", "", _session.ObtenerHeaders(), paramsAsignarAmbulanciaDto, false);
+
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response.Result);
+
+        }
+
+        [HttpPost]
+        [Route("ObtenerListaIPSMonitoreo")]
+        public async Task<IActionResult> ObtenerListaIPSMonitoreo()
+        {
+            var response = await _apiHelper.Post<object, IPS>(_options.ApiEextranetBaseUrl, _options.ObtenerListaIPSMonitoreo, "", "", _session.ObtenerHeaders(), null, true);
+
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response.Result);
+
+        }
+
+
 
     }
 }

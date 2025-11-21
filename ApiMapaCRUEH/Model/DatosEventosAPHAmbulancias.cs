@@ -1,0 +1,84 @@
+﻿namespace ApiMapaCRUEH.Model
+{
+    public class DatosEventosAPHAmbulancias
+    {
+        public long ID { get; set; }
+        public int IDPortal { get; set; }
+        public Guid? IDPersona { get; set; }
+        public int TipoEvento { get; set; }
+        public string NombreTipoEvento { get; set; }
+        public long IDEvento { get; set; }
+        public string Evento { get; set; }
+        public long IDMedioRecepcion { get; set; }
+        public string MedioRecepcion { get; set; }
+        public long IDSectorReportante { get; set; }
+        public string SectorReportante { get; set; }
+        public DateTime HoraReporte { get; set; }
+        public string NombreReporta { get; set; }
+        public string TelefonoReporta { get; set; }
+        public int? TipoTrauma { get; set; }
+        public string NombreTipoTrauma { get; set; }
+        public long? IDRolTransito { get; set; }
+        public string RolTransito { get; set; }
+        public int? MecanismoLesion { get; set; }
+        public string NombreMecanismoLesion { get; set; }
+        public string DatosArl { get; set; }
+        public string CodigoMunicipio { get; set; }
+        public string Municipio { get; set; }
+        public string Direccion { get; set; }
+        public string ObservacionPretraslado { get; set; }
+        public string CodigoIPSAsignada { get; set; }
+        public string NombreIPSAsignada { get; set; }
+        public long? CodigoAmbulancia { get; set; }
+        public string PlacasAmbulancia { get; set; }
+        public int? TipoTransporte { get; set; }
+        public string NombreTipoTransporte { get; set; }
+        public DateTime HoraNotificacionAmbulancia { get; set; }
+        public DateTime? HoraSalidaAmbulancia { get; set; }
+        public DateTime? HoraLlegadaSitio { get; set; }
+        public DateTime? HoraSalidaSitio { get; set; }
+        public string NumeroIdentificacion { get; set; }
+        public string TipoIdentificacion { get; set; }
+        public string PrimerApellido { get; set; }
+        public string SegundoApellido { get; set; }
+        public string PrimerNombre { get; set; }
+        public string SegundoNombre { get; set; }
+        public string Sexo { get; set; }
+        public string NombreSexo { get; set; }
+        public int? Edad { get; set; }
+        public int? TipoEdad { get; set; }
+        public string NombreTipoEdad { get; set; }
+        public int? GrupoPoblacional { get; set; }
+        public string NombreGrupoPoblacional { get; set; }
+        public int? GrupoEtnico { get; set; }
+        public string NombreGrupoEtnico { get; set; }
+        public int? Regimen { get; set; }
+        public string NombreRegimen { get; set; }
+        public string CodigoEPS { get; set; }
+        public string NombreEPS { get; set; }
+        public string CIE10 { get; set; }
+        public string NombreCIE10 { get; set; }
+        public DateTime? HoraLlegadaIPS { get; set; }
+        public DateTime? HoraEntregaMedica { get; set; }
+        public int? Triage { get; set; }
+        public string NombreTriage { get; set; }
+        public int? CondicionFinalPaciente { get; set; }
+        public string NombreCondicionFinalPaciente { get; set; }
+        public string CodigoIPSLlegada { get; set; }
+        public string NombreIPSLlegada { get; set; }
+        public string CIE10IPS { get; set; }
+        public string NombreCIE10IPS { get; set; }
+        public long IDNovedadTraslado { get; set; }
+        public string NovedadTraslado { get; set; }
+        public string ObservacionTraslado { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public long IDUsuarioCreacion { get; set; }
+        public string NombreUsuarioCreacion { get; set; }
+        public DateTime FechaModificacion { get; set; }
+        public long IDUsuarioModificacion { get; set; }
+        public string NombreUsuarioModificacion { get; set; }
+        public decimal? Latitud { get; set; }
+        public decimal? Longitud { get; set; } 
+    }
+
+}

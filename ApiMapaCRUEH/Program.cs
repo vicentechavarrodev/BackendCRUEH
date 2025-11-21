@@ -10,10 +10,18 @@ builder.Services.AddSingleton<IApiHelper, ApiHelper>();
 builder.Services.AddSingleton<IEXSession, EXSession>();
 
 var app = builder.Build();
+app.UseCors(builder =>
+{
+    builder
+    .WithOrigins("http://localhost", "http://localhost:3000", "http://localhost:3001", "http://186.147.196.166")
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
+
 
 //if (app.Environment.IsDevelopment())
 //{
-    app.UseSwagger();
+app.UseSwagger();
     app.UseSwaggerUI();
 //}
 
