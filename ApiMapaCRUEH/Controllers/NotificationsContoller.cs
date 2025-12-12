@@ -59,7 +59,7 @@ namespace ApiMapaCRUEH.Controllers
 				[ProducesResponseType((int)HttpStatusCode.OK)]
 				[ProducesResponseType((int)HttpStatusCode.BadRequest)]
 				[ProducesResponseType((int)HttpStatusCode.UnprocessableEntity)]
-				public async Task<IActionResult> RequestPush([Required] NotificationRequest notificationRequest)
+				public async Task<IActionResult> RequestPush([Required] NotificationRequestDto notificationRequest)
 				{
 						if ((notificationRequest.Silent &&
 								string.IsNullOrWhiteSpace(notificationRequest?.Action)) ||

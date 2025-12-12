@@ -162,12 +162,13 @@ namespace ApiMapaCRUEH.Controllers
 								return BadRequest(response);
 						}
 						var success = await _notificationService
-							.RequestNotificationAsync(new NotificationRequest
+							.RequestNotificationAsync(new NotificationRequestDto
 							{
 									Action = "action_a",
 									Text = "Se le ha asignado una emergencia,click para ver.",
 									Silent = true,
-									Tags = ["ambulancia1"]
+									Tags = ["ambulancia1"],
+									IdEvento = paramsAsignarAmbulanciaDto.ID.ToString()
 							}, HttpContext.RequestAborted);
 
 						return Ok(response.Result);
@@ -180,11 +181,40 @@ namespace ApiMapaCRUEH.Controllers
 				{
 						var response = await _apiHelper.Post<object, IPS>(_options.ApiEextranetBaseUrl, _options.ObtenerListaIPSMonitoreo, "", "", _session.ObtenerHeaders(), null, true);
 
+
 						if (!response.IsSuccess)
 						{
 								return BadRequest(response);
 						}
 						return Ok(response.Result);
+
+				}
+
+				[HttpPost]
+				[Route("ObtenerEvento")]
+				public async Task<IActionResult> ObtenerEvento(ConsultarEventoDto consultarEvento)
+				{
+
+						var response = await ObtenerListaEventosActivos();
+
+						if (response is OkObjectResult okResult)
+						{
+								var value = okResult.Value;
+								if (value is List<DatosEventosAPHAmbulancias> datosEventos)
+								{
+										var evento = datosEventos.FirstOrDefault(e => e.ID == int.Parse(consultarEvento.IdEvento));
+										if (evento != null)
+										{
+												return Ok(evento);
+										}
+										else
+										{
+												return NotFound(new { Message = "Evento no encontrado." });
+										}
+								}
+
+						}
+						return Ok(null);
 
 				}
 
