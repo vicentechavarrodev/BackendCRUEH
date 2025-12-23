@@ -17,9 +17,10 @@
 		public string ObtenerListaEventosActivos { get; set; }
 		public string AsignarAmbulancia { get; set; }
 		public string ObtenerListaIPSMonitoreo { get; set; }
-
 		public string IniciarSesionAmbulancia { get; set; }
-
+		public string GestionarAsignacion { get; set; }
 		public string CerrarSesionAmbulancia { get; set; }
+		public string ObtenerListaTriageAPH { get; set; }
+
 
 }

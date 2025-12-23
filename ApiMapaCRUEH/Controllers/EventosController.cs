@@ -4,6 +4,7 @@ using ApiMapaCRUEH.Request;
 using ApiMapaCRUEH.Services;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace ApiMapaCRUEH.Controllers
 {
 		[Route("backendcrueh/[controller]")]
@@ -161,6 +162,7 @@ namespace ApiMapaCRUEH.Controllers
 						{
 								return BadRequest(response);
 						}
+
 						var success = await _notificationService
 							.RequestNotificationAsync(new NotificationRequestDto
 							{
@@ -215,6 +217,34 @@ namespace ApiMapaCRUEH.Controllers
 
 						}
 						return Ok(null);
+
+				}
+
+				[HttpPost]
+				[Route("GestionarAsignacionEmergencia")]
+				public async Task<IActionResult> GestionarAsignacion(ParametrosGestionarAsignacionAmbulanciaAPHDto parametrosGestionarAsignacionAmbulancia)
+				{
+						var response = await _apiHelper.Post<ParametrosGestionarAsignacionAmbulanciaAPHDto, object>(_options.ApiEextranetBaseUrl, _options.GestionarAsignacion, "", "", _session.ObtenerHeaders(), parametrosGestionarAsignacionAmbulancia, false);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+						return Ok(response.Result);
+
+				}
+
+				[HttpPost]
+				[Route("ObtenerListaTriageAPH")]
+				public async Task<IActionResult> ObtenerListaTriageAPH()
+				{
+						var response = await _apiHelper.Post<object, ItemLista>(_options.ApiEextranetBaseUrl, _options.ObtenerListaTriageAPH, "", "", _session.ObtenerHeaders(), null, true);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+						return Ok(response.Result);
 
 				}
 

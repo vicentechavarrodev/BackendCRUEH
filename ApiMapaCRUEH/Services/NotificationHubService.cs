@@ -77,8 +77,7 @@ namespace ApiMapaCRUEH.Services
 						if ((notificationRequest.Silent &&
 								string.IsNullOrWhiteSpace(notificationRequest?.Action)) ||
 								(!notificationRequest.Silent &&
-								(string.IsNullOrWhiteSpace(notificationRequest?.Text)) ||
-								string.IsNullOrWhiteSpace(notificationRequest?.Action)))
+								string.IsNullOrWhiteSpace(notificationRequest?.Text)))
 								return false;
 
 						var androidPushTemplate = notificationRequest.Silent ?
@@ -118,12 +117,11 @@ namespace ApiMapaCRUEH.Services
 								return false;
 						}
 				}
-
 				string PrepareNotificationPayload(string template, string text, string action, string idEvento) => template
-						.Replace("$(alertMessage)", text, StringComparison.InvariantCulture)
-						.Replace("$(alertAction)", action, StringComparison.InvariantCulture)
-						.Replace("$(idEvento)", idEvento, StringComparison.InvariantCulture)
-						;
+					.Replace("$(alertMessage)", text, StringComparison.InvariantCulture)
+					.Replace("$(alertAction)", action, StringComparison.InvariantCulture)
+					.Replace("$(idEvento)", idEvento, StringComparison.InvariantCulture)
+					;
 
 				Task SendPlatformNotificationsAsync(string androidPayload, CancellationToken token)
 				{
