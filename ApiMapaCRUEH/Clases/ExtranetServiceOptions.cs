@@ -21,6 +21,6 @@
 		public string GestionarAsignacion { get; set; }
 		public string CerrarSesionAmbulancia { get; set; }
 		public string ObtenerListaTriageAPH { get; set; }
-
-
+		public string RecuperarClave { get; set; }
+		public string GestionarAsignacionAmbulanciaAPH { get; set; }
 }

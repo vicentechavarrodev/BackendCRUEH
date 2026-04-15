@@ -38,9 +38,11 @@ namespace ApiMapaCRUEH.Controllers
 								return BadRequest(usuarioAutenticado);
 						}
 
-						if (((UsuarioAutenticado)usuarioAutenticado.Result).IDUsuario > 0)
+						await _session.ObtenerSessionExtranet();
+
+						if (((UsuarioAutenticado)usuarioAutenticado.Result).IDUsuario > 0 && autenticarMovilDto.EsAmbulancia)
 						{
-								await _session.ObtenerSessionExtranet();
+
 								var responseSessionAmbulancia = await _apiHelper.Post<ParamsConsultarSesionDto, DatosSesionAmbulancia>(_options.ApiEextranetBaseUrl, _options.IniciarSesionAmbulancia, "", "", _session.ObtenerHeaders(),
 						new ParamsConsultarSesionDto
 						{
@@ -72,7 +74,7 @@ namespace ApiMapaCRUEH.Controllers
 								return BadRequest(usuarioAutenticado);
 						}
 
-						if (((UsuarioAutenticado)usuarioAutenticado.Result).IDUsuario > 0)
+						if (((UsuarioAutenticado)usuarioAutenticado.Result).IDUsuario > 0 && autenticarMovilDto.EsAmbulancia)
 						{
 								await _session.ObtenerSessionExtranet();
 								var responseSessionAmbulancia = await _apiHelper.Post<ParamsConsultarSesionDto, DatosSesionAmbulancia>(_options.ApiEextranetBaseUrl, _options.CerrarSesionAmbulancia, "", "", _session.ObtenerHeaders(),
@@ -91,5 +93,23 @@ namespace ApiMapaCRUEH.Controllers
 						return Ok(usuarioAutenticado.Result);
 
 				}
+				[HttpPost]
+				[Route("RecuperarContrasena")]
+				public async Task<IActionResult> RecuperarContrasena(RecuperarClaveDto recuperarClaveDto)
+				{
+						var responseRecuperarClave = await _apiHelper.Post<RecuperarClaveDto, ResponseRecuperarClave>(_options.ApiEextranetBaseUrl, _options.RecuperarClave, "", "", null,
+									recuperarClaveDto,
+										false
+						);
+
+						if (!responseRecuperarClave.IsSuccess)
+						{
+								return BadRequest(responseRecuperarClave);
+						}
+
+						return Ok(responseRecuperarClave.Result);
+
+				}
+
 		}
 }
