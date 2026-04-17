@@ -7,5 +7,8 @@
 				public string[] Tags { get; set; } = Array.Empty<string>();
 				public bool Silent { get; set; }
 				public string IdEvento { get; set; }
+				public string Evento { get; set; }
+
+
 		}
 }

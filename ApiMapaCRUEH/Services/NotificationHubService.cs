@@ -88,7 +88,12 @@ namespace ApiMapaCRUEH.Services
 								androidPushTemplate,
 								notificationRequest.Text,
 								notificationRequest.Action,
-								notificationRequest.IdEvento);
+								notificationRequest.IdEvento,
+								notificationRequest.Evento
+								);
+
+
+
 						try
 						{
 								if (notificationRequest.Tags.Length == 0)
@@ -117,10 +122,13 @@ namespace ApiMapaCRUEH.Services
 								return false;
 						}
 				}
-				string PrepareNotificationPayload(string template, string text, string action, string idEvento) => template
+
+
+				string PrepareNotificationPayload(string template, string text, string action, string idEvento, string evento) => template
 					.Replace("$(alertMessage)", text, StringComparison.InvariantCulture)
 					.Replace("$(alertAction)", action, StringComparison.InvariantCulture)
 					.Replace("$(idEvento)", idEvento, StringComparison.InvariantCulture)
+					.Replace("$(extraData)", evento, StringComparison.InvariantCulture)
 					;
 
 				Task SendPlatformNotificationsAsync(string androidPayload, CancellationToken token)
@@ -138,6 +146,7 @@ namespace ApiMapaCRUEH.Services
 				{
 						var sendTasks = new Task[]
 						{
+
 						_hub.SendFcmV1NativeNotificationAsync(androidPayload, tags, token),
 
 						};

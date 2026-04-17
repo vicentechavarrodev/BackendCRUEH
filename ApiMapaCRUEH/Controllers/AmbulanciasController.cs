@@ -35,20 +35,6 @@ namespace ApiMapaCRUEH.Controllers
 
 				}
 
-				[HttpPost]
-				[Route("GestionarAsignacionAmbulanciaAPH")]
-				public async Task<IActionResult> GestionarAsignacionAmbulanciaAPH(ParametrosGestionarAsignacionAmbulanciaAPH gestionarAsignacionAmbulanciaAPH)
-				{
-						var responseGestionarAsignacion = await _apiHelper.Post<ParametrosGestionarAsignacionAmbulanciaAPH, object>(_options.ApiEextranetBaseUrl, _options.GestionarAsignacionAmbulanciaAPH, "", "", _session.ObtenerHeaders(), gestionarAsignacionAmbulanciaAPH, false);
-
-						if (!responseGestionarAsignacion.IsSuccess)
-						{
-								return BadRequest(responseGestionarAsignacion);
-						}
-
-						return Ok(responseGestionarAsignacion.Result);
-
-				}
 
 
 
