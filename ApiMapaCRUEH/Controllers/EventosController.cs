@@ -196,7 +196,8 @@ namespace ApiMapaCRUEH.Controllers
 									Silent = true,
 									Tags = ["ambulancia1"],
 									IdEvento = paramsAsignarAmbulanciaDto.ID.ToString(),
-									Evento = HttpUtility.JavaScriptStringEncode(objetoLimpio)
+									Datos = HttpUtility.JavaScriptStringEncode(objetoLimpio),
+									Title = "Asignación de emergencia"
 							}, HttpContext.RequestAborted);
 
 						return Ok(response.Result);
@@ -288,7 +289,40 @@ namespace ApiMapaCRUEH.Controllers
 
 				}
 
+				[HttpPost]
+				[Route("AsignarIPS")]
+				public async Task<IActionResult> AsignarIPS(ParametrosAsignarIPSAPH parametrosAsignarIPSAPH)
+				{
+						var response = await _apiHelper.Post<ParametrosAsignarIPSAPH, object>(_options.ApiEextranetBaseUrl, _options.AsignarIPS, "", "", _session.ObtenerHeaders(), parametrosAsignarIPSAPH, false);
 
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+
+						string objetoLimpio = JsonConvert.SerializeObject(parametrosAsignarIPSAPH, new JsonSerializerSettings
+						{
+								NullValueHandling = NullValueHandling.Ignore,
+								Formatting = Formatting.None,
+
+						});
+
+						var success = await _notificationService
+							.RequestNotificationAsync(new NotificationRequestDto
+							{
+									Action = "action_b",
+									Text = "Se le ha asignado la IPS \n" + parametrosAsignarIPSAPH.NombreIPS,
+									Silent = true,
+									Tags = ["ambulancia1"],
+									IdEvento = parametrosAsignarIPSAPH.ID.ToString(),
+									Datos = HttpUtility.JavaScriptStringEncode(objetoLimpio),
+									Title = "Asignación de IPS"
+							}, HttpContext.RequestAborted);
+
+
+						return Ok(response.Result);
+
+				}
 
 		}
 }

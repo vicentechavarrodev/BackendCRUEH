@@ -89,7 +89,8 @@ namespace ApiMapaCRUEH.Services
 								notificationRequest.Text,
 								notificationRequest.Action,
 								notificationRequest.IdEvento,
-								notificationRequest.Evento
+								notificationRequest.Datos,
+								notificationRequest.Title
 								);
 
 
@@ -124,11 +125,12 @@ namespace ApiMapaCRUEH.Services
 				}
 
 
-				string PrepareNotificationPayload(string template, string text, string action, string idEvento, string evento) => template
+				string PrepareNotificationPayload(string template, string text, string action, string idEvento, string datos, string title) => template
 					.Replace("$(alertMessage)", text, StringComparison.InvariantCulture)
 					.Replace("$(alertAction)", action, StringComparison.InvariantCulture)
 					.Replace("$(idEvento)", idEvento, StringComparison.InvariantCulture)
-					.Replace("$(extraData)", evento, StringComparison.InvariantCulture)
+					.Replace("$(extraData)", datos, StringComparison.InvariantCulture)
+					.Replace("$(title)", title, StringComparison.InvariantCulture)
 					;
 
 				Task SendPlatformNotificationsAsync(string androidPayload, CancellationToken token)

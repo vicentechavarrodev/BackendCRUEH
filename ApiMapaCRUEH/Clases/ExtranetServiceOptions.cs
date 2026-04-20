@@ -24,4 +24,6 @@
 		public string RecuperarClave { get; set; }
 		public string GestionarAsignacionAmbulanciaAPH { get; set; }
 		public string IniciarAtencionAPH { get; set; }
+		public string AsignarIPS { get; set; }
+
 }
