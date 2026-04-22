@@ -130,7 +130,7 @@ namespace ApiMapaCRUEH.Services
 					.Replace("$(alertAction)", action, StringComparison.InvariantCulture)
 					.Replace("$(idEvento)", idEvento, StringComparison.InvariantCulture)
 					.Replace("$(extraData)", datos, StringComparison.InvariantCulture)
-					.Replace("$(title)", title, StringComparison.InvariantCulture)
+					.Replace("$(alertTitle)", title, StringComparison.InvariantCulture)
 					;
 
 				Task SendPlatformNotificationsAsync(string androidPayload, CancellationToken token)

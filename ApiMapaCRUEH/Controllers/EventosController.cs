@@ -174,9 +174,9 @@ namespace ApiMapaCRUEH.Controllers
 								if (okResult.Value != null)
 								{
 										var value = okResult.Value;
-										if (value is DatosEventosAPHAmbulancias datosEvento)
+										if (value is DatosEventosAPHAmbulancias e)
 										{
-												eventoEncontrado = datosEvento;
+												eventoEncontrado = e;
 										}
 								}
 						}
@@ -192,12 +192,12 @@ namespace ApiMapaCRUEH.Controllers
 							.RequestNotificationAsync(new NotificationRequestDto
 							{
 									Action = "action_a",
-									Text = "Se le ha asignado una emergencia,click para ver.",
+									Text = "Se le ha asignado una nueva emergencia",
 									Silent = true,
 									Tags = ["ambulancia1"],
 									IdEvento = paramsAsignarAmbulanciaDto.ID.ToString(),
 									Datos = HttpUtility.JavaScriptStringEncode(objetoLimpio),
-									Title = "Asignación de emergencia"
+									Title = "EMERGENCIA ASIGNADA"
 							}, HttpContext.RequestAborted);
 
 						return Ok(response.Result);
@@ -316,7 +316,7 @@ namespace ApiMapaCRUEH.Controllers
 									Tags = ["ambulancia1"],
 									IdEvento = parametrosAsignarIPSAPH.ID.ToString(),
 									Datos = HttpUtility.JavaScriptStringEncode(objetoLimpio),
-									Title = "Asignación de IPS"
+									Title = "TRASLADO IPS ASIGNADO"
 							}, HttpContext.RequestAborted);
 
 
