@@ -9,5 +9,8 @@
 				public List<ItemLista> ListaMotivosRechazo { get; set; }
 				public List<ItemLista> ListaMotivosCancelacion { get; set; }
 				public string Error { get; set; }
+				public int IDUsuario { get; set; }
+				public string NombreUsuario { get; set; }
+
 		}
 }

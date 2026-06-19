@@ -81,6 +81,8 @@
 				public decimal? Longitud { get; set; }
 				public int? TriageAmbulancia { get; set; }
 				public string NombreTriageAmbulancia { get; set; }
+				public int Estado { get; set; }
+				public Guid? IDConfirmacion { get; set; }
 		}
 
 }

@@ -25,5 +25,13 @@
 		public string GestionarAsignacionAmbulanciaAPH { get; set; }
 		public string IniciarAtencionAPH { get; set; }
 		public string AsignarIPS { get; set; }
+		public string ObtenerListaAfiliados { get; set; }
+		public string RegistrarTomasMedicion { get; set; }
+		public string RegistrarPacienteAmbulancia { get; set; }
+		public string IniciarTurnoAmbulancia { get; set; }
+		public string FinalizarTurnoAmbulancia { get; set; }
+		public string ComprobarFinalizadoRegistroAPH { get; set; }
+		public string EntregarPacienteRegistroAPH { get; set; }
+		public string CancelarServicioAmbulancia { get; set; }
 
 }

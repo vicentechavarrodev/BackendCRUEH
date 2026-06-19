@@ -14,8 +14,18 @@ namespace ApiMapaCRUEH.Services
 				public NotificationHubService(IOptions<NotificationHubOptions> options, ILogger<NotificationHubService> logger)
 				{
 						_logger = logger;
-						_hub = NotificationHubClient.CreateClientFromConnectionString(options.Value.ConnectionString, options.Value.Name);
-
+						var retryOptions = new NotificationHubRetryOptions
+						{
+								Mode = NotificationHubRetryMode.Exponential,
+								MaxRetries = 5,
+								Delay = TimeSpan.FromSeconds(2),
+								MaxDelay = TimeSpan.FromSeconds(30)
+						};
+						var settings = new NotificationHubSettings
+						{
+								RetryOptions = retryOptions
+						};
+						_hub = new NotificationHubClient(options.Value.ConnectionString, options.Value.Name);
 						_installationPlatform = new Dictionary<string, NotificationPlatform>
 				{
 						{ nameof(NotificationPlatform.Apns).ToLower(), NotificationPlatform.Apns },
@@ -92,9 +102,6 @@ namespace ApiMapaCRUEH.Services
 								notificationRequest.Datos,
 								notificationRequest.Title
 								);
-
-
-
 						try
 						{
 								if (notificationRequest.Tags.Length == 0)
@@ -103,7 +110,18 @@ namespace ApiMapaCRUEH.Services
 								}
 								else if (notificationRequest.Tags.Length <= 20)
 								{
-										await SendPlatformNotificationsAsync(androidPayload, notificationRequest.Tags, token);
+										try
+										{
+												await SendPlatformNotificationsAsync(androidPayload, notificationRequest.Tags, token);
+										}
+										catch (Exception ex)
+										{
+												Console.WriteLine($"Error de comunicación: {ex.Message}");
+												Console.WriteLine($"Detalle interno: {ex.InnerException?.Message}");
+												return false;
+										}
+
+
 								}
 								else
 								{
@@ -117,6 +135,7 @@ namespace ApiMapaCRUEH.Services
 
 								return true;
 						}
+
 						catch (Exception e)
 						{
 								_logger.LogError(e, "Unexpected error sending notification");

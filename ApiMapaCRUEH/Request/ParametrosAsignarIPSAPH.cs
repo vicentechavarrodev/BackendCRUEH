@@ -7,5 +7,6 @@
 				public string NombreIPS { get; set; }
 				public long IDUsuario { get; set; }
 				public string NombreUsuario { get; set; }
+				public string PlacasAmbulancia { get; set; }
 		}
 }

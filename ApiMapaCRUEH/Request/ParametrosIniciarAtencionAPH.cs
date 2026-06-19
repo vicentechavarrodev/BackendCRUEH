@@ -11,8 +11,12 @@
 				public int? MecanismoLesion { get; set; }
 				public string DatosARL { get; set; }
 				public DateTime HoraLlegadaSitio { get; set; }
-				public decimal? Latitud { get; set; }
-				public decimal? Longitud { get; set; }
+				public decimal LatitudLlegadaSitio { get; set; }
+				public decimal LongitudLlegadaSitio { get; set; }
+				public DateTime HoraInicioAtencion { get; set; }
+				public decimal LatitudInicioAtencion { get; set; }
+				public decimal LongitudInicioAtencion { get; set; }
+				public string ObservacionesPaciente { get; set; }
 				public long IDUsuario { get; set; }
 				public string NombreUsuario { get; set; }
 		}

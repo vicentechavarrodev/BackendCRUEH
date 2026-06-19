@@ -138,6 +138,20 @@ namespace ApiMapaCRUEH.Controllers
 
 				}
 
+				[HttpPost]
+				[Route("RegistrarPacienteAmbulancia")]
+				public async Task<IActionResult> RegistrarPacienteAmbulancia(ParametrosRegistrarPacienteAPH parametrosRegistrarPacienteAPH)
+				{
+						var response = await _apiHelper.Post<ParametrosRegistrarPacienteAPH, object>(_options.ApiEextranetBaseUrl, _options.RegistrarPacienteAmbulancia, "", "", _session.ObtenerHeaders(), parametrosRegistrarPacienteAPH, false);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+						return Ok(response.Result);
+
+				}
+
 
 				[HttpPost]
 				[Route("ObtenerListaEventosActivos")]
@@ -194,11 +208,14 @@ namespace ApiMapaCRUEH.Controllers
 									Action = "action_a",
 									Text = "Se le ha asignado una nueva emergencia",
 									Silent = true,
-									Tags = ["ambulancia1"],
+									Tags = [paramsAsignarAmbulanciaDto.PlacasAmbulancia],
 									IdEvento = paramsAsignarAmbulanciaDto.ID.ToString(),
 									Datos = HttpUtility.JavaScriptStringEncode(objetoLimpio),
 									Title = "EMERGENCIA ASIGNADA"
 							}, HttpContext.RequestAborted);
+
+						if (!success)
+								return StatusCode(500, "Ocurrió un error interno con la notificación");
 
 						return Ok(response.Result);
 
@@ -313,13 +330,56 @@ namespace ApiMapaCRUEH.Controllers
 									Action = "action_b",
 									Text = "Se le ha asignado la IPS \n" + parametrosAsignarIPSAPH.NombreIPS,
 									Silent = true,
-									Tags = ["ambulancia1"],
+									Tags = [parametrosAsignarIPSAPH.PlacasAmbulancia],
 									IdEvento = parametrosAsignarIPSAPH.ID.ToString(),
 									Datos = HttpUtility.JavaScriptStringEncode(objetoLimpio),
 									Title = "TRASLADO IPS ASIGNADO"
 							}, HttpContext.RequestAborted);
 
 
+						return Ok(response.Result);
+
+				}
+
+
+				[HttpPost]
+				[Route("ComprobarFinalizadoRegistroAPH")]
+				public async Task<IActionResult> ComprobarFinalizadoRegistroAPH(ParametrosComprobarFinalizadoRegistroAPH parametrosComprobarFinalizadoRegistroAPH)
+				{
+						var response = await _apiHelper.Post<ParametrosComprobarFinalizadoRegistroAPH, RespuestaComprobarFinalizadoRegistroAPH>(_options.ApiEextranetBaseUrl, _options.ComprobarFinalizadoRegistroAPH, "", "", _session.ObtenerHeaders(), parametrosComprobarFinalizadoRegistroAPH, false);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+						return Ok(response.Result);
+
+				}
+
+				[HttpPost]
+				[Route("EntregarPacienteRegistroAPH")]
+				public async Task<IActionResult> EntregarPacienteRegistroAPH(ParametrosEntregarPacienteRegistroAPH parametrosEntregarPacienteRegistroAPH)
+				{
+						var response = await _apiHelper.Post<ParametrosEntregarPacienteRegistroAPH, object>(_options.ApiEextranetBaseUrl, _options.EntregarPacienteRegistroAPH, "", "", _session.ObtenerHeaders(), parametrosEntregarPacienteRegistroAPH, false);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+						return Ok(response.Result);
+
+				}
+
+				[HttpPost]
+				[Route("CancelarServicioAmbulancia")]
+				public async Task<IActionResult> CancelarServicioAmbulancia(ParametrosCancelarEventoAPH parametrosCancelarEventoAPH)
+				{
+						var response = await _apiHelper.Post<ParametrosCancelarEventoAPH, object>(_options.ApiEextranetBaseUrl, _options.CancelarServicioAmbulancia, "", "", _session.ObtenerHeaders(), parametrosCancelarEventoAPH, false);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
 						return Ok(response.Result);
 
 				}

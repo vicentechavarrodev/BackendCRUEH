@@ -36,6 +36,48 @@ namespace ApiMapaCRUEH.Controllers
 				}
 
 
+				[HttpPost]
+				[Route("RegistrarTomasMedicion")]
+				public async Task<IActionResult> RegistrarTomasMedicion(ParametrosTomasMedicionAph datosTomasMedicions)
+				{
+						var response = await _apiHelper.Post<ParametrosTomasMedicionAph, Ambulancia>(_options.ApiEextranetBaseUrl, _options.RegistrarTomasMedicion, "", "", _session.ObtenerHeaders(), datosTomasMedicions, false, false);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+						return Ok(response.Result);
+
+				}
+
+				[HttpPost]
+				[Route("IniciarTurnoAmbulancia")]
+				public async Task<IActionResult> IniciarTurnoAmbulancia(ParametrosIniciarTurnoAmbulancia datosIniciarTurno)
+				{
+						var response = await _apiHelper.Post<ParametrosIniciarTurnoAmbulancia, object>(_options.ApiEextranetBaseUrl, _options.IniciarTurnoAmbulancia, "", "", _session.ObtenerHeaders(), datosIniciarTurno, false, false);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+						return Ok(response.Result);
+
+				}
+
+				[HttpPost]
+				[Route("FinalizarTurnoAmbulancia")]
+				public async Task<IActionResult> FinalizarTurnoAmbulancia(ParametrosFinalizarTurnoAmbulancia datosFinalizarTurno)
+				{
+						var response = await _apiHelper.Post<ParametrosFinalizarTurnoAmbulancia, object>(_options.ApiEextranetBaseUrl, _options.FinalizarTurnoAmbulancia, "", "", _session.ObtenerHeaders(), datosFinalizarTurno, false, false);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+						return Ok(response.Result);
+
+				}
+
 
 
 		}

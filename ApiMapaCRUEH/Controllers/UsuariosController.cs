@@ -53,7 +53,11 @@ namespace ApiMapaCRUEH.Controllers
 								{
 										return BadRequest(responseSessionAmbulancia);
 								}
-								return Ok(responseSessionAmbulancia.Result);
+
+								var resultado = (DatosSesionAmbulancia)responseSessionAmbulancia.Result;
+								resultado.NombreUsuario = ((UsuarioAutenticado)usuarioAutenticado.Result).NombreUsuario;
+								resultado.IDUsuario = ((UsuarioAutenticado)usuarioAutenticado.Result).IDUsuario;
+								return Ok(resultado);
 
 						}
 						return Ok(usuarioAutenticado.Result);
@@ -111,5 +115,27 @@ namespace ApiMapaCRUEH.Controllers
 
 				}
 
+				[HttpPost]
+				[Route("ObtenerListaAfiliados")]
+				public async Task<IActionResult> ObtenerListaAfiliados(ParamsObtenerListaAfiliados paramsObtenerListaAfiliados)
+				{
+						var responseObtenerListaAfiliados = await _apiHelper.Post<ParamsObtenerListaAfiliados, RespuestaObtenerListaAfiliados>(_options.ApiEextranetBaseUrl, _options.ObtenerListaAfiliados, "", "", _session.ObtenerHeaders(),
+									paramsObtenerListaAfiliados,
+										false
+						);
+
+						if (!responseObtenerListaAfiliados.IsSuccess)
+						{
+								return BadRequest(responseObtenerListaAfiliados);
+						}
+
+						var afiliados = (RespuestaObtenerListaAfiliados)responseObtenerListaAfiliados.Result;
+
+						DatosAfiliado paciente = null;
+						if (afiliados.Datos.Count > 0)
+								paciente = afiliados.Datos.FirstOrDefault(x => x.Estado == "ACTIVO") ?? afiliados.Datos.First();
+
+						return Ok(paciente);
+				}
 		}
 }
