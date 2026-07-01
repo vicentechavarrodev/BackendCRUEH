@@ -33,5 +33,6 @@
 		public string ComprobarFinalizadoRegistroAPH { get; set; }
 		public string EntregarPacienteRegistroAPH { get; set; }
 		public string CancelarServicioAmbulancia { get; set; }
+		public string CambiarDisponibilidadAmbulancia { get; set; }
 
 }

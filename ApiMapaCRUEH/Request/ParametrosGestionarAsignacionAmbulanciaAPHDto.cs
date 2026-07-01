@@ -9,5 +9,7 @@
 				public DateTime FechaEvento { get; set; }
 				public bool Acepta { get; set; }
 				public string Observacion { get; set; }
+				public decimal Latitud { get; set; }
+				public decimal Longitud { get; set; }
 		}
 }

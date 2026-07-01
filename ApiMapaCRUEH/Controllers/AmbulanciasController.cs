@@ -78,6 +78,20 @@ namespace ApiMapaCRUEH.Controllers
 
 				}
 
+				[HttpPost]
+				[Route("CambiarDisponibilidadAmbulancia")]
+				public async Task<IActionResult> CambiarDisponibilidadAmbulancia(ParametrosCambiarDisponibilidadAmbulancia parametrosCambiarDisponibilidadAmbulancia)
+				{
+						var response = await _apiHelper.Post<ParametrosCambiarDisponibilidadAmbulancia, object>(_options.ApiEextranetBaseUrl, _options.CambiarDisponibilidadAmbulancia, "", "", _session.ObtenerHeaders(), parametrosCambiarDisponibilidadAmbulancia, false, false);
+
+						if (!response.IsSuccess)
+						{
+								return BadRequest(response);
+						}
+						return Ok(response.Result);
+
+				}
+
 
 
 		}

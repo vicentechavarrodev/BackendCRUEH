@@ -10,34 +10,34 @@ namespace ApiMapaCRUEH.Services
 		{
 				private readonly CookieContainer _cookieContainer;
 				private readonly HttpClientHandler _handler;
-				private HttpClient _httpClient;
-
+				private readonly HttpClient _httpClient;
 
 				public ApiHelper()
 				{
 						_cookieContainer = new CookieContainer();
 						_handler = new HttpClientHandler { CookieContainer = _cookieContainer, UseCookies = true, AllowAutoRedirect = true };
-
+						_httpClient = new HttpClient(_handler);
 				}
 
 				public async Task<Response> Get<T>(string urlBase, string servicePrefix, string controller, string token, Dictionary<string, string> headers, bool Json = true)
 				{
-
 						try
 						{
-								_httpClient = new HttpClient(_handler);
-								_httpClient.BaseAddress = new Uri(urlBase);
-								var url = string.Format("{0}{1}", servicePrefix, controller);
-								if (token != string.Empty) _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+								var urlCompleta = new Uri(new Uri(urlBase), $"{servicePrefix}{controller}");
+								using var request = new HttpRequestMessage(HttpMethod.Get, urlCompleta);
+
+								if (!string.IsNullOrEmpty(token))
+										request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
 								if (headers != null)
 								{
 										foreach (var header in headers)
 										{
-												_httpClient.DefaultRequestHeaders.Add(header.Key, header.Value);
+												request.Headers.TryAddWithoutValidation(header.Key, header.Value);
 										}
 								}
 
-								var response = await _httpClient.GetAsync(url);
+								var response = await _httpClient.SendAsync(request);
 
 								if (!response.IsSuccessStatusCode)
 								{
@@ -47,7 +47,6 @@ namespace ApiMapaCRUEH.Services
 												Message = response.ReasonPhrase,
 												Code = response.StatusCode.ToString(),
 												ResponseMessage = response
-
 										};
 								}
 								var result = await response.Content.ReadAsStringAsync();
@@ -74,7 +73,6 @@ namespace ApiMapaCRUEH.Services
 												ResponseMessage = response
 										};
 								}
-
 						}
 						catch (Exception ex)
 						{
@@ -85,29 +83,30 @@ namespace ApiMapaCRUEH.Services
 										Message = ex.Message,
 								};
 						}
-
-
-
 				}
 
 				public async Task<Response> Post<T, K>(string urlBase, string servicePrefix, string controller, string token, Dictionary<string, string> headers, T requestModel, bool responseList, bool Json = true)
 				{
 						try
 						{
-								_httpClient = new HttpClient(_handler);
-								_httpClient.BaseAddress = new Uri(urlBase);
-								var request = JsonConvert.SerializeObject(requestModel);
-								var content = new StringContent(request, Encoding.UTF8, "application/json");
-								var url = string.Format("{0}{1}", servicePrefix, controller);
-								if (token != string.Empty) _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+								var urlCompleta = new Uri(new Uri(urlBase), $"{servicePrefix}{controller}");
+								using var request = new HttpRequestMessage(HttpMethod.Post, urlCompleta);
+
+								var jsonRequest = JsonConvert.SerializeObject(requestModel);
+								request.Content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+								if (!string.IsNullOrEmpty(token))
+										request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
 								if (headers != null)
 								{
 										foreach (var header in headers)
 										{
-												_httpClient.DefaultRequestHeaders.Add(header.Key, header.Value);
+												request.Headers.TryAddWithoutValidation(header.Key, header.Value);
 										}
 								}
-								var response = await _httpClient.PostAsync(url, content);
+
+								var response = await _httpClient.SendAsync(request);
 
 								if (!response.IsSuccessStatusCode)
 								{
@@ -121,10 +120,8 @@ namespace ApiMapaCRUEH.Services
 								}
 
 								var result = await response.Content.ReadAsStringAsync();
-
 								object objectResult;
-
-								var cookies = _cookieContainer.GetCookies(_httpClient.BaseAddress);
+								var cookies = _cookieContainer.GetCookies(new Uri(urlBase));
 
 								if (Json)
 								{
@@ -157,11 +154,6 @@ namespace ApiMapaCRUEH.Services
 												Cookies = cookies
 										};
 								}
-
-
-
-
-
 						}
 						catch (Exception ex)
 						{
@@ -171,21 +163,17 @@ namespace ApiMapaCRUEH.Services
 										Message = ex.Message,
 								};
 						}
-
-
 				}
-
 
 				public async Task<Response> Post<T>(string urlBase, string servicePrefix, string controller, string tokenType, string accessToken, Dictionary<string, string> form)
 				{
 						try
 						{
-								_httpClient = new HttpClient(_handler);
-								_httpClient.BaseAddress = new Uri(urlBase);
-								var request = new FormUrlEncodedContent(form);
-								_httpClient.BaseAddress = new Uri(urlBase);
-								var url = string.Format("{0}{1}", servicePrefix, controller);
-								var response = await _httpClient.PostAsync(url, request);
+								var urlCompleta = new Uri(new Uri(urlBase), $"{servicePrefix}{controller}");
+								using var request = new HttpRequestMessage(HttpMethod.Post, urlCompleta);
+								request.Content = new FormUrlEncodedContent(form);
+
+								var response = await _httpClient.SendAsync(request);
 
 								if (!response.IsSuccessStatusCode)
 								{
@@ -218,6 +206,5 @@ namespace ApiMapaCRUEH.Services
 								};
 						}
 				}
-
 		}
 }
