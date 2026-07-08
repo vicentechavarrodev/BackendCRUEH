@@ -1,6 +1,7 @@
 ﻿public class ExtranetServiceOptions
 {
 		public string ApiEextranetBaseUrl { get; set; }
+		public string ApiDatosPublicostBaseUrl { get; set; }
 		public string AutenticarMovil { get; set; }
 		public string ConfiguracionListaAmbulancias { get; set; }
 		public string ObtenerListaAmbulanciasMonitoreo { get; set; }
@@ -34,5 +35,7 @@
 		public string EntregarPacienteRegistroAPH { get; set; }
 		public string CancelarServicioAmbulancia { get; set; }
 		public string CambiarDisponibilidadAmbulancia { get; set; }
+		public string ObtenerListaMunicipiosMonitoreo { get; set; }
+		public string ObtenerListaMunicipiosCoordenadas { get; set; }
 
 }
