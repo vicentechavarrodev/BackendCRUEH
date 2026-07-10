@@ -4,6 +4,7 @@ using ApiMapaCRUEH.Request;
 using ApiMapaCRUEH.Services;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Globalization;
 using System.Web;
 
 
@@ -379,6 +380,51 @@ namespace ApiMapaCRUEH.Controllers
 						if (!response.IsSuccess)
 						{
 								return BadRequest(response);
+						}
+						return Ok(response.Result);
+
+				}
+
+
+
+				[HttpPost]
+				[Route("ObtenerListaMunicipiosMonitoreo")]
+				public async Task<IActionResult> ObtenerListaMunicipiosMonitoreo()
+				{
+						var response = await _apiHelper.Post<object, ItemLista>(_options.ApiEextranetBaseUrl, _options.ObtenerListaMunicipiosMonitoreo, "", "", _session.ObtenerHeaders(), null, true);
+
+						if (!response.IsSuccess || response.Result == null)
+						{
+								return BadRequest(response);
+						}
+
+						var listaMunicipiosExtranet = response.Result as List<ItemLista>;
+
+						var responseDatosPúblicosMunicipios = await _apiHelper.Post<object, Municipio>(_options.ApiDatosPublicostBaseUrl, _options.ObtenerListaMunicipiosCoordenadas, "", "", _session.ObtenerHeaders(), null, true);
+
+						if (responseDatosPúblicosMunicipios.IsSuccess && responseDatosPúblicosMunicipios.Result != null)
+						{
+								var listaMunicipios = responseDatosPúblicosMunicipios.Result as List<Municipio>;
+
+								var municipiosDict = listaMunicipios.ToDictionary(m => m.CodMpio, m => m);
+
+								var culturaConComas = new CultureInfo("es-ES");
+
+								foreach (var item in listaMunicipiosExtranet)
+								{
+										if (municipiosDict.TryGetValue(item.Valor, out var municipioAsociado))
+										{
+												if (decimal.TryParse(municipioAsociado.Latitud, NumberStyles.Number, culturaConComas, out decimal latDecimal))
+												{
+														item.Latitud = latDecimal;
+												}
+
+												if (decimal.TryParse(municipioAsociado.Longitud, NumberStyles.Number, culturaConComas, out decimal lngDecimal))
+												{
+														item.Longitud = lngDecimal;
+												}
+										}
+								}
 						}
 						return Ok(response.Result);
 

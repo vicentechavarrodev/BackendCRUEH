@@ -12,6 +12,9 @@
 
 				public string? ExposicionToxicos { get; set; } = "N/A";
 
+				public string DescripcionHallazgos { get; set; }
+
+				public string Intervencion { get; set; }
 				public int IdToma { get; set; }
 		}
 }
